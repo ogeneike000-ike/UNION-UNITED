@@ -200,4 +200,597 @@
       font-size:13px;
       color:#ffb3b3;
       margin-bottom:6px;
-      text-
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    /* Games */
+    .games-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+      margin-top:6px;
+    }
+    .game-tile{
+      background:#0b0506;
+      border-radius:8px;
+      border:1px solid #3a1518;
+      padding:8px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      transition:box-shadow .15s,transform .15s,border-color .15s;
+      cursor:pointer;
+    }
+    .game-tile:hover{
+      box-shadow:0 0 14px rgba(255,59,59,.6);
+      border-color:#ff3b3b;
+      transform:translateY(-2px);
+    }
+    .game-thumb{
+      width:100%;
+      height:90px;
+      border-radius:6px;
+      background:#1a0a0c;
+      background-size:cover;
+      background-position:center;
+      box-shadow:0 0 12px rgba(255,59,59,.4);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+    .game-tile:hover .game-thumb{
+      transform:scale(1.05);
+      box-shadow:0 0 16px rgba(255,59,59,.8);
+    }
+    .game-title{font-size:13px;color:#ffeaea}
+    .game-meta{font-size:11px;color:#b37a7a}
+    .play-btn{
+      align-self:flex-start;
+      padding:5px 10px;
+      border-radius:999px;
+      border:none;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      background:linear-gradient(90deg,#ff3b3b,#ff7b4b);
+      color:#050507;
+      cursor:pointer;
+      box-shadow:0 0 10px rgba(255,59,59,.7);
+    }
+
+    /* Search */
+    .search-bar{margin-top:10px;display:flex;gap:6px}
+    #searchBar{
+      flex:1;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid #3a1518;
+      background:#050507;
+      color:#ffeaea;
+      font-size:13px;
+      outline:none;
+      box-shadow:0 0 10px rgba(255,59,59,.2);
+    }
+    #searchBar::placeholder{color:#7a5555}
+    #searchBar:focus{
+      border-color:#ff3b3b;
+      box-shadow:0 0 12px rgba(255,59,59,.6);
+    }
+
+    /* Auth */
+    .auth-box{
+      margin-top:10px;
+      padding:10px;
+      border-radius:8px;
+      background:#080507;
+      border:1px solid #3a1518;
+      font-size:12px;
+      animation:flicker 3s infinite;
+    }
+    .auth-box h3{
+      font-size:13px;
+      color:#ffb3b3;
+      margin-bottom:6px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .auth-box label{display:block;margin:4px 0 2px;color:#d9a0a0;font-size:11px}
+    .auth-box input{
+      width:100%;
+      padding:6px 8px;
+      border-radius:6px;
+      border:1px solid #3a1518;
+      background:#050507;
+      color:#ffeaea;
+      font-size:12px;
+      margin-bottom: 5px;
+    }
+    .auth-actions{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+    .btn{
+      padding:6px 10px;
+      border-radius:999px;
+      border:none;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      cursor:pointer;
+      background:linear-gradient(90deg,#ff3b3b,#ff7b4b);
+      color:#050507;
+      box-shadow:0 0 10px rgba(255,59,59,.7);
+      transition:transform .1s,box-shadow .1s,filter .1s;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 0 14px rgba(255,59,59,.9);
+      filter:brightness(1.05);
+    }
+    .btn-secondary{
+      background:#2a1517;
+      color:#f5dede;
+      box-shadow:none;
+    }
+    .user-info{
+      margin-top:4px;
+      font-size:11px;
+      color:#b37a7a;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .avatar{
+      width:18px;height:18px;border-radius:50%;
+      background:#3a1518;
+      display:flex;align-items:center;justify-content:center;
+      font-size:10px;color:#ffdfdf;
+      box-shadow:0 0 8px rgba(255,59,59,.6);
+    }
+
+    /* Sections */
+    .section{display:none}
+    .section.active{display:block}
+
+    /* Admin Panel */
+    .admin-panel{
+      margin-top:10px;
+      padding:10px;
+      border-radius:10px;
+      background:#080507;
+      border:1px solid #ff3b3b;
+      box-shadow:0 0 18px rgba(255,59,59,.6);
+      display:none; 
+      opacity:0;
+      transform:translateY(8px);
+      transition:opacity .2s ease,transform .2s ease;
+      font-size:12px;
+      animation:flicker 3s infinite;
+    }
+    .admin-panel.visible{
+      display:block !important;
+      opacity:1;
+      transform:translateY(0);
+    }
+    .admin-panel h2{
+      font-size:14px;
+      color:#ffdfdf;
+      margin-bottom:6px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .admin-section{
+      margin-top:8px;
+      padding:8px;
+      border-radius:8px;
+      background:#0b0506;
+      border:1px solid #3a1518;
+    }
+    .admin-section h3{
+      font-size:12px;
+      color:#ffb3b3;
+      margin-bottom:4px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .admin-section p{margin:2px 0;font-size:11px;color:#e0b0b0}
+    .admin-section input,
+    .admin-section select{
+      width:100%;
+      padding:6px 8px;
+      border-radius:6px;
+      border:1px solid #3a1518;
+      background:#050507;
+      color:#ffeaea;
+      font-size:11px;
+      margin:3px 0;
+    }
+    .admin-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+    .admin-row .btn{flex:1}
+    .log-box{
+      height:110px;
+      overflow-y:auto;
+      background:#050507;
+      border-radius:6px;
+      border:1px solid #3a1518;
+      padding:6px;
+      font-size:10px;
+      color:#f5dede;
+      white-space: pre-wrap;
+    }
+
+    /* Terminal List */
+    .terminal-card{font-size:11px;color:#e0ffea}
+    .terminal-list p{
+      display:flex;
+      justify-content:space-between;
+      margin:2px 0;
+    }
+    .term-dot{
+      width:7px;height:7px;border-radius:50%;background:#3bff6b;box-shadow:0 0 8px #3bff6b;
+    }
+    .stats-card p{font-size:11px;color:#e0b0b0}
+
+    /* Chat */
+    .chat-box{
+      font-size:11px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .chat-log{
+      height:120px;
+      overflow-y:auto;
+      background:#050507;
+      border-radius:6px;
+      border:1px solid #3a1518;
+      padding:6px;
+    }
+    .chat-input-row{
+      display:flex;
+      gap:4px;
+    }
+    .chat-input-row input{
+      flex:1;
+      padding:5px 7px;
+      border-radius:6px;
+      border:1px solid #3a1518;
+      background:#050507;
+      color:#ffeaea;
+      font-size:11px;
+    }
+
+    /* Friends */
+    .friends-list p{margin:2px 0;font-size:11px;color:#e0b0b0}
+
+    /* Animations */
+    @keyframes terminalGlow{
+      0%{text-shadow:0 0 4px #ff3b3b;}
+      50%{text-shadow:0 0 12px #ff3b3b;}
+      100%{text-shadow:0 0 4px #ff3b3b;}
+    }
+    @keyframes flicker{
+      0%,100%{opacity:1;}
+      50%{opacity:0.9;}
+    }
+
+    /* CSS Terminal Icon for Localhost Game */
+    .localhost-icon{
+      width:100%;
+      height:90px;
+      border-radius:6px;
+      background:#0b0506;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:monospace;
+      font-size:26px;
+      color:#ff3b3b;
+      text-shadow:0 0 12px #ff3b3b;
+      box-shadow:0 0 12px rgba(255,59,59,.4);
+    }
+    </style>
+</head>
+<body>
+
+<div id="entryGate" style="position:fixed;inset:0;background:#050507;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#ffdfdf;font-family:monospace;">
+    <h2 style="margin-bottom:10px;">Enter UNION</h2>
+    <input id="gateUser" placeholder="Username" style="padding:8px;margin:4px;">
+    <input id="gatePass" placeholder="Password" type="password" style="padding:8px;margin:4px;">
+    <button class="btn" id="gateEnter">Enter</button>
+</div>
+
+<div id="bootScreen">
+    <h1>UNION</h1>
+    <div id="bootLog">Initializing system...</div>
+    <div id="bootBar"><div id="bootBarFill"></div></div>
+</div>
+
+<div class="layout">
+    <div class="sidebar">
+        <div>
+            <div class="side-logo">UNION</div>
+            <div class="nav-section">
+                <h4>Navigation</h4>
+                <div class="nav-link active" data-section="home"><span class="icon"></span> Home</div>
+                <div class="nav-link" data-section="games"><span class="icon"></span> Games</div>
+                <div class="nav-link" data-section="chat"><span class="icon"></span> Chat</div>
+                <div class="nav-link" data-section="friends"><span class="icon"></span> Friends</div>
+                <div class="nav-link" data-section="admin"><span class="icon"></span> Admin</div>
+            </div>
+        </div>
+        <div class="side-footer">
+            <div class="online-box"><span>Online</span><div class="online-dot"></div></div>
+            <p>UNION Network</p>
+            <p>v1.0</p>
+        </div>
+    </div>
+
+    <div class="main">
+        <div id="bannerContainer"></div>
+        <div class="top-header">
+            <h1 class="typing" id="typingHeader">WELCOME ALL UNION UNITED</h1>
+            <p>Cyber Terminal Network</p>
+        </div>
+
+        <div class="content-row">
+            <div class="main-panel">
+                <div class="section active" id="home">
+                    <div class="card">
+                        <h3>Welcome</h3>
+                        <p>Explore games, chat, manage your profile, and access admin tools.</p>
+                    </div>
+                </div>
+
+                <div class="section" id="games">
+                    <div class="card">
+                        <h3>Games</h3>
+                        <div class="search-bar"><input id="searchBar" placeholder="Search games..."></div>
+                        <div class="card" style="margin-top:10px;">
+                            <h3>Add Game (User Import)</h3>
+                            <input id="userGameName" placeholder="Game Name">
+                            <input id="userGameURL" placeholder="Game URL">
+                            <input id="userGameIcon" placeholder="Icon URL (optional)">
+                            <input id="userGameCat" placeholder="Category">
+                            <button class="btn" id="userAddGameBtn">Add Game</button>
+                        </div>
+                        <div class="games-grid" id="gamesGrid"></div>
+                    </div>
+                </div>
+
+                <div class="section" id="chat">
+                    <div class="card">
+                        <h3>Chat</h3>
+                        <div class="chat-box">
+                            <div class="chat-log" id="chatLog"></div>
+                            <div class="chat-input-row">
+                                <input id="chatInput" placeholder="Type message...">
+                                <button class="btn" id="chatSend">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" id="friends">
+                    <div class="card">
+                        <h3>Friends</h3>
+                        <div class="friends-list" id="friendsList"></div>
+                    </div>
+                </div>
+
+                <div class="section" id="admin">
+                    <div class="admin-panel" id="adminPanel">
+                        <h2>Admin Panel</h2>
+                        <div class="admin-section">
+                            <h3>Global Announcement</h3>
+                            <input id="announceInput" placeholder="Message">
+                            <button class="btn" id="announceBtn">Send</button>
+                        </div>
+                        <div class="admin-section">
+                            <h3>Maintenance Mode</h3>
+                            <button class="btn" id="maintOn">Enable</button>
+                            <button class="btn btn-secondary" id="maintOff">Disable</button>
+                        </div>
+                        <div class="admin-section">
+                            <h3>Manage Users</h3>
+                            <input id="userTarget" placeholder="Username">
+                            <div class="admin-row">
+                                <button class="btn" id="banBtn">Ban</button>
+                                <button class="btn" id="unbanBtn">Unban</button>
+                                <button class="btn" id="promoteBtn">Promote</button>
+                                <button class="btn btn-secondary" id="demoteBtn">Demote</button>
+                            </div>
+                        </div>
+                        <div class="admin-section">
+                            <h3>Logs</h3>
+                            <div class="log-box" id="logBox"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="card auth-box">
+                    <h3>Account</h3>
+                    <label>Username</label><input id="authUser">
+                    <label>Password</label><input id="authPass" type="password">
+                    <div class="auth-actions">
+                        <button class="btn" id="loginBtn">Login</button>
+                        <button class="btn btn-secondary" id="registerBtn">Register</button>
+                    </div>
+                    <div class="user-info" id="userInfo">Not logged in</div>
+                </div>
+                <div class="card stats-card">
+                    <h3>Stats</h3>
+                    <p id="statsUsers">Users: 0</p>
+                    <p id="statsGames">Games: 0</p>
+                    <p id="statsMessages">Messages: 0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+/**
+ * START CORE FIXES
+ */
+window.$ = q => document.querySelector(q);
+window.$$ = q => document.querySelectorAll(q);
+window.log = (m) => {
+    let logs = JSON.parse(localStorage.getItem("logs") || "[]");
+    logs.push(new Date().toLocaleTimeString() + ": " + m);
+    localStorage.setItem("logs", JSON.stringify(logs));
+    const logBox = $("#logBox");
+    if(logBox) logBox.textContent = logs.join("\n");
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    /* --- DATA STATE --- */
+    let users = JSON.parse(localStorage.getItem("users") || "{}");
+    let games = JSON.parse(localStorage.getItem("games") || "[]");
+    let messages = JSON.parse(localStorage.getItem("messages") || "[]");
+    let friends = JSON.parse(localStorage.getItem("friends") || "[]");
+    let currentUser = null;
+
+    const saveUsers = () => localStorage.setItem("users", JSON.stringify(users));
+    const saveGames = () => localStorage.setItem("games", JSON.stringify(games));
+    const saveMessages = () => localStorage.setItem("messages", JSON.stringify(messages));
+
+    const isAdmin = () => currentUser === "IkeUnited" || (currentUser && users[currentUser].role === "admin");
+
+    /* --- UI UPDATES --- */
+    function updateUserInfo() {
+        const box = $("#userInfo");
+        if (!currentUser) { box.textContent = "Not logged in"; return; }
+        let roleLabel = (users[currentUser].role === "admin") ? " [OWNER]" : "";
+        box.innerHTML = `<div class="avatar">${currentUser[0].toUpperCase()}</div>${currentUser}${roleLabel}`;
+    }
+
+    function showAdmin() {
+        if (isAdmin()) {
+            $("#adminPanel").classList.add("visible");
+            log("Admin access triggered.");
+        }
+    }
+
+    /* --- BOOT SEQUENCE --- */
+    let bootLines = ["Loading UNION kernel...", "Initializing modules...", "Boot complete."];
+    let bootIndex = 0;
+    let bInterval = setInterval(() => {
+        if (bootIndex < bootLines.length) {
+            $("#bootLog").textContent += bootLines[bootIndex] + "\n";
+            $("#bootBarFill").style.width = ((bootIndex + 1) / bootLines.length * 100) + "%";
+            bootIndex++;
+        } else {
+            clearInterval(bInterval);
+            setTimeout(() => $("#bootScreen").style.display = "none", 500);
+        }
+    }, 600);
+
+    /* --- NAVIGATION --- */
+    $$(".nav-link").forEach(n => {
+        n.onclick = () => {
+            $$(".nav-link").forEach(a => a.classList.remove("active"));
+            n.classList.add("active");
+            let sec = n.dataset.section;
+            $$(".section").forEach(s => s.classList.remove("active"));
+            $("#" + sec).classList.add("active");
+            if (sec === 'admin' && isAdmin()) showAdmin();
+        };
+    });
+
+    /* --- AUTH LOGIC --- */
+    $("#registerBtn").onclick = () => {
+        let u = $("#authUser").value.trim(), p = $("#authPass").value.trim();
+        if (!u || !p || users[u]) return alert("Invalid user or exists");
+        users[u] = { pass: p, role: (u === "IkeUnited" ? "admin" : "user"), banned: false };
+        saveUsers();
+        alert("Registered: " + u);
+    };
+
+    $("#loginBtn").onclick = () => {
+        let u = $("#authUser").value.trim(), p = $("#authPass").value.trim();
+        if (users[u] && users[u].pass === p && !users[u].banned) {
+            currentUser = u;
+            updateUserInfo();
+            if (isAdmin()) showAdmin();
+            log("Login: " + u);
+        } else { alert("Login Failed"); }
+    };
+
+    $("#gateEnter").onclick = () => {
+        let u = $("#gateUser").value.trim(), p = $("#gatePass").value.trim();
+        if (!users[u]) {
+            users[u] = { pass: p, role: (u === "IkeUnited" ? "admin" : "user"), banned: false };
+            saveUsers();
+        }
+        if (users[u].pass === p) {
+            currentUser = u;
+            updateUserInfo();
+            $("#entryGate").style.display = "none";
+            if (isAdmin()) showAdmin();
+        }
+    };
+
+    /* --- SECRET COMBO --- */
+    let shiftMode = false, passBuffer = "";
+    document.addEventListener("keydown", e => {
+        if (e.key === "A" && e.shiftKey) { shiftMode = true; passBuffer = ""; }
+        if (shiftMode && e.key.length === 1 && !e.shiftKey) passBuffer += e.key;
+        if (shiftMode && e.key === "Enter") {
+            if (passBuffer === "chrolo123") showAdmin();
+            shiftMode = false;
+        }
+    });
+
+    /* --- GAME ENGINE --- */
+    function renderGames() {
+        const grid = $("#gamesGrid");
+        grid.innerHTML = "";
+        games.forEach(g => {
+            let tile = document.createElement("div");
+            tile.className = "game-tile";
+            tile.innerHTML = `<div class="${g.icon ? 'game-thumb' : 'localhost-icon'}" 
+                style="${g.icon ? 'background-image:url('+g.icon+')' : ''}">${g.icon ? '' : '>_'}</div>
+                <div class="game-title">${g.name}</div><button class="play-btn">Play</button>`;
+            tile.querySelector("button").onclick = () => window.open(g.url, "_blank");
+            grid.appendChild(tile);
+        });
+    }
+
+    $("#userAddGameBtn").onclick = () => {
+        let n = $("#userGameName").value, u = $("#userGameURL").value, i = $("#userGameIcon").value;
+        if (n && u) { games.push({ name: n, url: u, icon: i }); saveGames(); renderGames(); }
+    };
+
+    /* --- CHAT --- */
+    $("#chatSend").onclick = () => {
+        let t = $("#chatInput").value;
+        if (currentUser && t) {
+            messages.push({ user: currentUser, text: t });
+            saveMessages();
+            let p = document.createElement("div");
+            p.textContent = currentUser + ": " + t;
+            $("#chatLog").appendChild(p);
+            $("#chatInput").value = "";
+        }
+    };
+
+    /* --- ADMIN ACTIONS --- */
+    $("#announceBtn").onclick = () => {
+        let m = $("#announceInput").value;
+        if (isAdmin() && m) {
+            $("#bannerContainer").innerHTML = `<div id="globalBanner">${m}</div>`;
+            log("Announcement set.");
+        }
+    };
+
+    /* --- INIT --- */
+    renderGames();
+    setInterval(() => {
+        $("#statsUsers").textContent = "Users: " + Object.keys(users).length;
+        $("#statsGames").textContent = "Games: " + games.length;
+        $("#statsMessages").textContent = "Messages: " + messages.length;
+    }, 2000);
+});
+</script>
+
+</body>
+</html>
