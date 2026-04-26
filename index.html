@@ -1,93 +1,1074 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Owner & Admin Logic</title>
+    <title>UNION Network | UNION HUB</title>
+    <style>
+    /* Fixed Styling */
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+        font-family:system-ui, -apple-system, sans-serif;
+        background: radial-gradient(circle at center, #1a0505 0%, #000000 100%) !important;
+        color:#f5f5f5;
+        min-height:100vh;
+        display:flex;
+    }
+a{text-decoration:none;color:inherit}
+.layout{display:flex;width:100%;min-height:100vh}
+
+/* Boot Screen */
+#bootScreen{
+  position:fixed;inset:0;
+background: radial-gradient(circle at center, #1a0505 0%, #000000 100%) !important;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9998;
+  font-family:monospace;
+  color:#ffdfdf;
+}
+#bootScreen h1{
+  font-size:26px;
+  letter-spacing:8px;
+  color:#ff3b3b;
+  text-shadow:0 0 18px #ff3b3b;
+  margin-bottom:10px;
+}
+#bootLog{
+  font-size:12px;
+  color:#b37a7a;
+  max-width:420px;
+  text-align:left;
+  white-space:pre-line;
+}
+#bootBar{
+  margin-top:10px;
+  width:220px;
+  height:4px;
+  border-radius:999px;
+  background:#12080a;
+  overflow:hidden;
+}
+#bootBarFill{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#ff3b3b,#ff7b4b);
+  box-shadow:0 0 10px #ff3b3b;
+  transition:width .3s;
+}
+
+/* Sidebar */
+.sidebar{
+  width:210px;
+  background:linear-gradient(180deg,#08080b,#050507);
+  border-right:1px solid #2a1012;
+  padding:20px 16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.side-logo{
+  font-size:22px;
+  letter-spacing:4px;
+  color:#ff3b3b;
+  text-shadow:0 0 12px #ff3b3b;
+  margin-bottom:24px;
+  animation:terminalGlow 2s infinite ease-in-out;
+}
+.nav-section h4{
+  font-size:11px;
+  color:#aa6666;
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.nav-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 6px;
+  border-radius:6px;
+  font-size:13px;
+  color:#f0dede;
+  cursor:pointer;
+  margin-bottom:4px;
+  transition:background .15s,box-shadow .15s;
+}
+.nav-link span.icon{
+  width:16px;height:16px;border-radius:3px;background:#3a1518;
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+}
+.nav-link:hover span.icon{
+  transform:scale(1.25) rotate(12deg);
+  background:#ff3b3b;
+  box-shadow:0 0 10px #ff3b3b;
+}
+.nav-link.active,
+.nav-link:hover{
+  background:rgba(255,59,59,.12);
+  box-shadow:0 0 10px rgba(255,59,59,.4);
+}
+.side-footer{font-size:11px;color:#7a5555}
+.side-footer p{margin:2px 0}
+.online-box{
+  margin-top:8px;
+  padding:6px 8px;
+  border-radius:6px;
+  background:#12080a;
+  border:1px solid #3a1518;
+  font-size:11px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.online-dot{
+  width:8px;height:8px;border-radius:50%;background:#3bff6b;box-shadow:0 0 8px #3bff6b;
+}
+
+/* Main */
+.main{
+  flex:1;
+  padding:20px 24px;
+  display:flex;
+  flex-direction:column;
+}
+#bannerContainer{margin-bottom:8px}
+#globalBanner{
+  background:#ff3b3b;
+  color:#050507;
+  text-align:center;
+  padding:8px;
+  font-size:13px;
+  font-weight:600;
+  box-shadow:0 0 14px #ff3b3b;
+  border-radius:4px;
+  margin-bottom:6px;
+}
+#maintBanner{
+  background:#7a1b1b;
+  color:#ffeaea;
+  text-align:center;
+  padding:6px;
+  font-size:12px;
+  font-weight:600;
+  box-shadow:0 0 10px #7a1b1b;
+  border-radius:4px;
+  margin-bottom:6px;
+}
+
+.top-header{text-align:center;margin-bottom:18px}
+.top-header h1{
+  font-size:32px;
+  letter-spacing:10px;
+  color:#ff3b3b;
+  text-shadow:0 0 18px #ff3b3b;
+  margin-bottom:4px;
+}
+.top-header p{
+  font-size:12px;
+  color:#b37a7a;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+.typing{
+  border-right:2px solid #ff3b3b;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+.content-row{
+  display:flex;
+  gap:18px;
+  flex:1;
+  min-height:0;
+}
+.main-panel{flex:3;display:flex;flex-direction:column}
+.right-panel{flex:1.2;display:flex;flex-direction:column;gap:12px}
+
+/* Cards */
+.card{
+  background:radial-gradient(circle at top,#1a0a0c,#050507);
+  border-radius:10px;
+  border:1px solid #3a1518;
+  padding:12px;
+  box-shadow:0 0 18px rgba(0,0,0,.8);
+  animation:flicker 3s infinite;
+}
+.card h3{
+  font-size:13px;
+  color:#ffb3b3;
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+/* Games */
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
+  margin-top:6px;
+}
+.game-tile{
+  background:#0b0506;
+  border-radius:8px;
+  border:1px solid #3a1518;
+  padding:8px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  transition:box-shadow .15s,transform .15s,border-color .15s;
+  cursor:pointer;
+}
+.game-tile:hover{
+  box-shadow:0 0 14px rgba(255,59,59,.6);
+  border-color:#ff3b3b;
+  transform:translateY(-2px);
+}
+.game-thumb{
+  width:100%;
+  height:90px;
+  border-radius:6px;
+  background:#1a0a0c;
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 0 12px rgba(255,59,59,.4);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.game-tile:hover .game-thumb{
+  transform:scale(1.05);
+  box-shadow:0 0 16px rgba(255,59,59,.8);
+}
+.game-title{font-size:13px;color:#ffeaea}
+.game-meta{font-size:11px;color:#b37a7a}
+.play-btn{
+  align-self:flex-start;
+  padding:5px 10px;
+  border-radius:999px;
+  border:none;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  background:linear-gradient(90deg,#ff3b3b,#ff7b4b);
+  color:#050507;
+  cursor:pointer;
+  box-shadow:0 0 10px rgba(255,59,59,.7);
+}
+
+/* Search */
+.search-bar{margin-top:10px;display:flex;gap:6px}
+#searchBar{
+  flex:1;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid #3a1518;
+  background:#050507;
+  color:#ffeaea;
+  font-size:13px;
+  outline:none;
+  box-shadow:0 0 10px rgba(255,59,59,.2);
+}
+#searchBar::placeholder{color:#7a5555}
+#searchBar:focus{
+  border-color:#ff3b3b;
+  box-shadow:0 0 12px rgba(255,59,59,.6);
+}
+
+/* Auth */
+.auth-box{
+  margin-top:10px;
+  padding:10px;
+  border-radius:8px;
+  background:#080507;
+  border:1px solid #3a1518;
+  font-size:12px;
+  animation:flicker 3s infinite;
+}
+.auth-box h3{
+  font-size:13px;
+  color:#ffb3b3;
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.auth-box label{display:block;margin:4px 0 2px;color:#d9a0a0;font-size:11px}
+.auth-box input{
+  width:100%;
+  padding:6px 8px;
+  border-radius:6px;
+  border:1px solid #3a1518;
+  background:#050507;
+  color:#ffeaea;
+  font-size:12px;
+}
+.auth-actions{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.btn{
+  padding:6px 10px;
+  border-radius:999px;
+  border:none;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  cursor:pointer;
+  background:linear-gradient(90deg,#ff3b3b,#ff7b4b);
+  color:#050507;
+  box-shadow:0 0 10px rgba(255,59,59,.7);
+  transition:transform .1s,box-shadow .1s,filter .1s;
+}
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 14px rgba(255,59,59,.9);
+  filter:brightness(1.05);
+}
+.btn-secondary{
+  background:#2a1517;
+  color:#f5dede;
+  box-shadow:none;
+}
+.user-info{
+  margin-top:4px;
+  font-size:11px;
+  color:#b37a7a;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.avatar{
+  width:18px;height:18px;border-radius:50%;
+  background:#3a1518;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:#ffdfdf;
+  box-shadow:0 0 8px rgba(255,59,59,.6);
+}
+
+/* Sections */
+.section{display:none}
+.section.active{display:block}
+
+/* Admin Panel */
+.admin-panel{
+  margin-top:10px;
+  padding:10px;
+  border-radius:10px;
+  background:#080507;
+  border:1px solid #ff3b3b;
+  box-shadow:0 0 18px rgba(255,59,59,.6);
+  display:none;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .2s ease,transform .2s ease;
+  font-size:12px;
+  animation:flicker 3s infinite;
+}
+.admin-panel.visible{
+  display:block;
+  opacity:1;
+  transform:translateY(0);
+}
+.admin-panel h2{
+  font-size:14px;
+  color:#ffdfdf;
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.admin-section{
+  margin-top:8px;
+  padding:8px;
+  border-radius:8px;
+  background:#0b0506;
+  border:1px solid #3a1518;
+}
+.admin-section h3{
+  font-size:12px;
+  color:#ffb3b3;
+  margin-bottom:4px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.admin-section p{margin:2px 0;font-size:11px;color:#e0b0b0}
+.admin-section input,
+.admin-section select{
+  width:100%;
+  padding:6px 8px;
+  border-radius:6px;
+  border:1px solid #3a1518;
+  background:#050507;
+  color:#ffeaea;
+  font-size:11px;
+  margin:3px 0;
+}
+.admin-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.admin-row .btn{flex:1}
+.log-box{
+  height:110px;
+  overflow-y:auto;
+  background:#050507;
+  border-radius:6px;
+  border:1px solid #3a1518;
+  padding:6px;
+  font-size:10px;
+  color:#f5dede;
+}
+
+/* Terminal List */
+.terminal-card{font-size:11px;color:#e0ffea}
+.terminal-list p{
+  display:flex;
+  justify-content:space-between;
+  margin:2px 0;
+}
+.term-dot{
+  width:7px;height:7px;border-radius:50%;background:#3bff6b;box-shadow:0 0 8px #3bff6b;
+}
+.stats-card p{font-size:11px;color:#e0b0b0}
+
+/* Chat */
+.chat-box{
+  font-size:11px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.chat-log{
+  height:120px;
+  overflow-y:auto;
+  background:#050507;
+  border-radius:6px;
+  border:1px solid #3a1518;
+  padding:6px;
+}
+.chat-input-row{
+  display:flex;
+  gap:4px;
+}
+.chat-input-row input{
+  flex:1;
+  padding:5px 7px;
+  border-radius:6px;
+  border:1px solid #3a1518;
+  background:#050507;
+  color:#ffeaea;
+  font-size:11px;
+}
+
+/* Friends */
+.friends-list p{margin:2px 0;font-size:11px;color:#e0b0b0}
+
+/* Animations */
+@keyframes terminalGlow{
+  0%{text-shadow:0 0 4px #ff3b3b;}
+  50%{text-shadow:0 0 12px #ff3b3b;}
+  100%{text-shadow:0 0 4px #ff3b3b;}
+}
+@keyframes flicker{
+  0%,100%{opacity:1;}
+  50%{opacity:0.9;}
+}
+
+/* CSS Terminal Icon for Localhost Game */
+.localhost-icon{
+  width:100%;
+  height:90px;
+  border-radius:6px;
+  background:#0b0506;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:monospace;
+  font-size:26px;
+  color:#ff3b3b;
+  text-shadow:0 0 12px #ff3b3b;
+  box-shadow:0 0 12px rgba(255,59,59,.4);
+}
+</style>
 </head>
 <body>
 
-    <!-- Your page content here -->
-    <input id="authUser" type="text" placeholder="Username">
-    <input id="authPass" type="password" placeholder="Password">
-    <button id="loginBtn">Login</button>
-    <button id="registerBtn">Register</button>
+<div id="entryGate" style="position:fixed;inset:0;background:#050507;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#ffdfdf;font-family:monospace;">
+  <h2 style="margin-bottom:10px;">Enter UNION</h2>
+  <input id="gateUser" placeholder="Username" style="padding:8px;margin:4px;">
+  <input id="gatePass" placeholder="Password" type="password" style="padding:8px;margin:4px;">
+  <button class="btn" id="gateEnter">Enter</button>
+</div>
 
-    <div id="adminPanel">Admin Panel</div>
+<div id="bootScreen">
+  <h1>UNION</h1>
+  <div id="bootLog">Initializing system...</div>
+  <div id="bootBar"><div id="bootBarFill"></div></div>
+</div>
 
-    <script>
-    /* --- OWNER & ADMIN LOGIC --- */
-    let users = JSON.parse(localStorage.getItem("users") || "{}");
-    let currentUser = null;
+<div class="layout">
+  <div class="sidebar">
+    <div>
+      <div class="side-logo">UNION</div>
 
-    // This function checks if the logged-in person is the boss
-    function isAdmin() {
-        return currentUser === "IkeUnited" || (currentUser && users[currentUser].role === "admin");
+      <div class="nav-section">
+        <h4>Navigation</h4>
+        <div class="nav-link active" data-section="home">
+          <span class="icon"></span> Home
+        </div>
+        <div class="nav-link" data-section="games">
+          <span class="icon"></span> Games
+        </div>
+        <div class="nav-link" data-section="chat">
+          <span class="icon"></span> Chat
+        </div>
+        <div class="nav-link" data-section="friends">
+          <span class="icon"></span> Friends
+        </div>
+        <div class="nav-link" data-section="admin">
+          <span class="icon"></span> Admin
+        </div>
+      </div>
+    </div>
+
+    <div class="side-footer">
+      <div class="online-box">
+        <span>Online</span>
+        <div class="online-dot"></div>
+      </div>
+      <p>UNION Network</p>
+      <p>v1.0</p>
+    </div>
+  </div>
+
+  <div class="main">
+    <div id="bannerContainer"></div>
+
+    <div class="top-header">
+      <h1 class="typing" id="typingHeader">WELCOME ALL UNION UNITED</h1>
+      <p>Cyber Terminal Network</p>
+    </div>
+
+    <div class="content-row">
+      <div class="main-panel">
+
+        <div class="section active" id="home">
+          <div class="card">
+            <h3>Welcome</h3>
+            <p>Explore games, chat, manage your profile, and access admin tools.</p>
+          </div>
+        </div>
+
+        <div class="section" id="games">
+          <div class="card">
+            <h3>Games</h3>
+            <div class="search-bar">
+              <input id="searchBar" placeholder="Search games...">
+            </div>
+
+            <div class="card" style="margin-top:10px;">
+              <h3>Add Game (User Import)</h3>
+              <input id="userGameName" placeholder="Game Name">
+              <input id="userGameURL" placeholder="Game URL">
+              <input id="userGameIcon" placeholder="Icon URL (optional)">
+              <input id="userGameCat" placeholder="Category">
+              <button class="btn" id="userAddGameBtn">Add Game</button>
+              <button class="btn btn-secondary" id="userAddIconBtn">Add Icon Only</button>
+            </div>
+
+            <div class="games-grid" id="gamesGrid"></div>
+          </div>
+        </div>
+
+        <div class="section" id="chat">
+          <div class="card">
+            <h3>Chat</h3>
+            <div class="chat-box">
+              <div class="chat-log" id="chatLog"></div>
+              <div class="chat-input-row">
+                <input id="chatInput" placeholder="Type message...">
+                <button class="btn" id="chatSend">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="friends">
+          <div class="card">
+            <h3>Friends</h3>
+            <div class="friends-list" id="friendsList"></div>
+          </div>
+        </div>
+
+        <div class="section" id="admin">
+          <div class="admin-panel" id="adminPanel">
+
+            <h2>Admin Panel</h2>
+
+            <div class="admin-section">
+              <h3>Global Announcement</h3>
+              <input id="announceInput" placeholder="Message">
+              <button class="btn" id="announceBtn">Send</button>
+            </div>
+
+            <div class="admin-section">
+              <h3>Maintenance Mode</h3>
+              <button class="btn" id="maintOn">Enable</button>
+              <button class="btn btn-secondary" id="maintOff">Disable</button>
+            </div>
+
+            <div class="admin-section">
+              <h3>Manage Users</h3>
+              <input id="userTarget" placeholder="Username">
+              <div class="admin-row">
+                <button class="btn" id="banBtn">Ban</button>
+                <button class="btn" id="unbanBtn">Unban</button>
+                <button class="btn" id="kickBtn">Kick</button>
+              </div>
+              <div class="admin-row">
+                <button class="btn" id="promoteBtn">Promote</button>
+                <button class="btn btn-secondary" id="demoteBtn">Demote</button>
+              </div>
+            </div>
+
+            <div class="admin-section">
+              <h3>Add Game</h3>
+              <input id="gameName" placeholder="Game Name">
+              <input id="gameURL" placeholder="Game URL">
+              <input id="gameIcon" placeholder="Icon URL (or leave blank)">
+              <input id="gameCat" placeholder="Category">
+              <button class="btn" id="addGameBtn">Add Game</button>
+            </div>
+
+            <div class="admin-section">
+              <h3>Logs</h3>
+              <div class="log-box" id="logBox"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="right-panel">
+
+        <div class="card auth-box">
+          <h3>Account</h3>
+          <label>Username</label>
+          <input id="authUser">
+          <label>Password</label>
+          <input id="authPass" type="password">
+          <div class="auth-actions">
+            <button class="btn" id="loginBtn">Login</button>
+            <button class="btn btn-secondary" id="registerBtn">Register</button>
+          </div>
+          <div class="user-info" id="userInfo"></div>
+        </div>
+
+        <div class="card terminal-card">
+          <h3>Terminals</h3>
+          <div class="terminal-list" id="terminalList"></div>
+        </div>
+
+        <div class="card stats-card">
+          <h3>Stats</h3>
+          <p id="statsUsers"></p>
+          <p id="statsGames"></p>
+          <p id="statsMessages"></p>
+        </div>
+
+        <div class="card stats-card">
+          <h3>Leaderboard</h3>
+          <p id="lbMessages"></p>
+          <p id="lbGames"></p>
+          <p id="lbLogins"></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $=q=>document.querySelector(q);
+const $$=q=>document.querySelectorAll(q);
+const log=(m)=>{let logs=JSON.parse(localStorage.getItem("logs")||"[]");logs.push(m);localStorage.setItem("logs",JSON.stringify(logs));updateLogs()};
+
+/* Boot Screen */
+let bootLines=[
+"Loading UNION kernel...",
+"Initializing cyber modules...",
+"Decrypting secure channels...",
+"Establishing neon grid...",
+"Boot complete."
+];
+let bootIndex=0;
+function runBoot(){
+ let logBox=$("#bootLog");
+ let bar=$("#bootBarFill");
+ let interval=setInterval(()=>{
+  if(bootIndex<bootLines.length){
+   logBox.textContent+=bootLines[bootIndex]+"\n";
+   bar.style.width=((bootIndex+1)/bootLines.length*100)+"%";
+   bootIndex++;
+  }else{
+   clearInterval(interval);
+   setTimeout(()=>{$("#bootScreen").style.display="none"},500);
+  }
+ },900);
+}
+runBoot();
+
+/* Typing Header */
+function typeHeader(){
+ let el=$("#typingHeader");
+ let txt="WELCOME ALL UNION UNITED";
+ let i=0;
+ let int=setInterval(()=>{
+  el.textContent=txt.slice(0,i);
+  i++;
+  if(i>txt.length)clearInterval(int);
+ },80);
+}
+typeHeader();
+
+/* Navigation */
+$$(".nav-link").forEach(n=>{
+ n.onclick=()=>{
+  $$(".nav-link").forEach(a=>a.classList.remove("active"));
+  n.classList.add("active");
+  let sec=n.dataset.section;
+  $$(".section").forEach(s=>s.classList.remove("active"));
+  $("#"+sec).classList.add("active");
+  
+  // FIXED: If user clicks Admin Nav and is Admin, show panel
+  if(sec === 'admin' && isAdmin()){
+      showAdmin();
+  }
+ };
+});
+
+/* Auth */
+let users=JSON.parse(localStorage.getItem("users")||"{}");
+let currentUser=null;
+function saveUsers(){localStorage.setItem("users",JSON.stringify(users))}
+function updateUserInfo(){
+ let box=$("#userInfo");
+ if(!currentUser){box.textContent="Not logged in";return}
+ let roleLabel = (users[currentUser].role === "admin") ? " [OWNER]" : "";
+ box.innerHTML=`<div class="avatar">${currentUser[0].toUpperCase()}</div>${currentUser}${roleLabel}`;
+}
+
+// FIXED: Registration grants Admin to IkeUnited
+$("#registerBtn").onclick=()=>{
+ let u=$("#authUser").value.trim();
+ let p=$("#authPass").value.trim();
+ if(!u||!p)return;
+ if(users[u])return;
+ 
+ let role = (u === "IkeUnited") ? "admin" : "user";
+ users[u]={pass:p,role:role,banned:false};
+ saveUsers();
+ log("Registered: "+u + " ("+role+")");
+ alert("Registered successfully!");
+};
+
+// FIXED: Login triggers Admin Panel for IkeUnited
+$("#loginBtn").onclick=()=>{
+ let u=$("#authUser").value.trim();
+ let p=$("#authPass").value.trim();
+ if(!u||!p)return;
+ if(!users[u])return;
+ if(users[u].banned)return;
+ if(users[u].pass!==p)return;
+ 
+ currentUser=u;
+ updateUserInfo();
+ log("Login: "+u);
+ 
+ if(isAdmin()) showAdmin();
+};
+
+/* Entry Gate */
+$("#gateEnter").onclick=()=>{
+ let u=$("#gateUser").value.trim();
+ let p=$("#gatePass").value.trim();
+ if(!u||!p)return;
+ if(!users[u]){
+  let role = (u === "IkeUnited") ? "admin" : "user";
+  users[u]={pass:p,role:role,banned:false};
+  saveUsers();
+ }
+ if(users[u].pass!==p)return;
+ if(users[u].banned)return;
+ currentUser=u;
+ updateUserInfo();
+ $("#entryGate").style.display="none";
+ log("Gate entry: "+u);
+ 
+ if(isAdmin()) showAdmin();
+};
+
+/* Admin Panel Logic */
+let adminPanel=$("#adminPanel");
+// FIXED: Recognizes IkeUnited as the boss
+function isAdmin(){
+    return currentUser === "IkeUnited" || (currentUser && users[currentUser].role==="admin");
+}
+
+function showAdmin(){
+    if(isAdmin()){
+        adminPanel.classList.add("visible");
     }
+}
+function hideAdmin(){adminPanel.classList.remove("visible")}
 
-    // Shows the panel ONLY if you are the admin/owner
-    function showAdmin() {
-        if (isAdmin()) {
-            const panel = $("#adminPanel");
-            panel.classList.add("visible");
-            log("Admin Panel Access Granted");
-        } else {
-            alert("Access Denied: Owner Privileges Required");
-        }
-    }
+/* Shortcuts */
+document.addEventListener("keydown",e=>{
+ if(e.ctrlKey && e.key==="a"){
+  e.preventDefault();
+  showAdmin();
+ }
+});
 
-    /* --- THE SECRET COMBO --- */
-    let shiftMode = false;
-    let passBuffer = "";
+/* Password combo stays as a backup */
+let shiftMode=false;
+let passBuffer="";
+document.addEventListener("keydown",e=>{
+ if(e.key==="A" && e.shiftKey){
+  shiftMode=true;
+  passBuffer="";
+ }
+ if(shiftMode && e.key.length===1 && !e.shiftKey){
+  passBuffer+=e.key;
+ }
+ if(shiftMode && e.key==="Enter"){
+  if(passBuffer==="chrolo123")showAdmin();
+  shiftMode=false;
+ }
+});
 
-    document.addEventListener("keydown", e => {
-        // Start the combo by holding Shift and pressing A
-        if (e.key === "A" && e.shiftKey) {
-            shiftMode = true;
-            passBuffer = "";
-        }
-        // Record the typing
-        if (shiftMode && e.key.length === 1 && !e.shiftKey) {
-            passBuffer += e.key;
-        }
-        // Finalize with Enter
-        if (shiftMode && e.key === "Enter") {
-            if (passBuffer === "chrolo123") {
-                showAdmin();
-            }
-            shiftMode = false;
-        }
-    });
+/* Admin Actions */
+$("#announceBtn").onclick=()=>{
+ let msg=$("#announceInput").value.trim();
+ if(!msg||!isAdmin())return;
+ localStorage.setItem("banner",msg);
+ updateBanner();
+ log("Announcement: "+msg);
+};
+$("#maintOn").onclick=()=>{
+ if(!isAdmin())return;
+ localStorage.setItem("maint","on");
+ updateMaint();
+ log("Maintenance enabled");
+};
+$("#maintOff").onclick=()=>{
+ if(!isAdmin())return;
+ localStorage.setItem("maint","off");
+ updateMaint();
+ log("Maintenance disabled");
+};
+$("#banBtn").onclick=()=>{
+ let u=$("#userTarget").value.trim();
+ if(users[u]){users[u].banned=true;saveUsers();log("Banned: "+u)}
+};
+$("#unbanBtn").onclick=()=>{
+ let u=$("#userTarget").value.trim();
+ if(users[u]){users[u].banned=false;saveUsers();log("Unbanned: "+u)}
+};
+$("#kickBtn").onclick=()=>{
+ let u=$("#userTarget").value.trim();
+ if(currentUser===u)currentUser=null;
+ log("Kicked: "+u);
+};
+$("#promoteBtn").onclick=()=>{
+ let u=$("#userTarget").value.trim();
+ if(users[u]){users[u].role="admin";saveUsers();log("Promoted: "+u)}
+};
+$("#demoteBtn").onclick=()=>{
+ let u=$("#userTarget").value.trim();
+ if(users[u]){users[u].role="user";saveUsers();log("Demoted: "+u)}
+};
 
-    /* --- UPDATED LOGIN LOGIC --- */
-    $("#loginBtn").onclick = () => {
-        let u = $("#authUser").value.trim();
-        let p = $("#authPass").value.trim();
-        if (!u || !p) return;
-        if (!users[u] || users[u].pass !== p || users[u].banned) return;
+/* Logs */
+function updateLogs(){
+ let logs=JSON.parse(localStorage.getItem("logs")||"[]");
+ $("#logBox").textContent=logs.join("\n");
+}
+updateLogs();
 
-        currentUser = u;
-        updateUserInfo();
-        log("Login: " + u);
-        
-        // Notice: I removed the automatic showAdmin() here 
-        // so the panel stays hidden until you use the combo.
-    };
+/* Banner + Maintenance */
+function updateBanner(){
+ let msg=localStorage.getItem("banner");
+ let box=$("#bannerContainer");
+ box.querySelectorAll("#globalBanner").forEach(e=>e.remove());
+ if(msg){
+  let div=document.createElement("div");
+  div.id="globalBanner";
+  div.textContent=msg;
+  box.prepend(div);
+ }
+}
+function updateMaint(){
+ let m=localStorage.getItem("maint");
+ let box=$("#bannerContainer");
+ let old=$("#maintBanner");
+ if(old)old.remove();
+ if(m==="on"){
+  let div=document.createElement("div");
+  div.id="maintBanner";
+  div.textContent="Maintenance Mode Active";
+  box.appendChild(div);
+ }
+}
+updateBanner();
+updateMaint();
 
-    /* --- UPDATED REGISTRATION --- */
-    $("#registerBtn").onclick = () => {
-        let u = $("#authUser").value.trim();
-        let p = $("#authPass").value.trim();
-        if (!u || !p || users[u]) return;
+/* Games */
+let games=JSON.parse(localStorage.getItem("games")||"[]");
+function saveGames(){localStorage.setItem("games",JSON.stringify(games))}
+function renderGames(){
+ let grid=$("#gamesGrid");
+ grid.innerHTML="";
+ games.forEach(g=>{
+  let tile=document.createElement("div");
+  tile.className="game-tile";
+  let thumb=document.createElement("div");
+  if(g.localhost){
+   thumb.className="localhost-icon";
+   thumb.textContent=">_";
+  }else{
+   thumb.className="game-thumb";
+   if(g.icon)thumb.style.backgroundImage=`url('${g.icon}')`;
+  }
+  let title=document.createElement("div");
+  title.className="game-title";
+  title.textContent=g.name;
+  let meta=document.createElement("div");
+  meta.className="game-meta";
+  meta.textContent=g.category||"";
+  let btn=document.createElement("button");
+  btn.className="play-btn";
+  btn.textContent="Play";
+  btn.onclick=()=>window.open(g.url,"_blank");
+  tile.appendChild(thumb);
+  tile.appendChild(title);
+  tile.appendChild(meta);
+  tile.appendChild(btn);
+  grid.appendChild(tile);
+ });
+}
+renderGames();
 
-        // Automatically makes IkeUnited the admin in the database
-        let role = (u === "IkeUnited") ? "admin" : "user";
-        users[u] = { pass: p, role: role, banned: false };
-        localStorage.setItem("users", JSON.stringify(users));
-        alert("Registered: " + u);
-    };
-    </script>
+/* Admin Add Game */
+$("#addGameBtn").onclick=()=>{
+ if(!isAdmin())return;
+ let name=$("#gameName").value.trim();
+ let url=$("#gameURL").value.trim();
+ let icon=$("#gameIcon").value.trim();
+ let cat=$("#gameCat").value.trim();
+ if(!name||!url)return;
+ let localhost=false;
+ if(!icon)localhost=true;
+ games.push({name,url,icon,category:cat,localhost});
+ saveGames();
+ renderGames();
+ log("Added game: "+name);
+};
+
+/* User Add Game */
+$("#userAddGameBtn").onclick=()=>{
+ let name=$("#userGameName").value.trim();
+ let url=$("#userGameURL").value.trim();
+ let icon=$("#userGameIcon").value.trim();
+ let cat=$("#userGameCat").value.trim();
+ if(!name||!url)return;
+ let localhost=false;
+ if(!icon)localhost=true;
+ games.push({name,url,icon,category:cat,localhost});
+ saveGames();
+ renderGames();
+ log("User imported game: "+name);
+};
+
+/* User Add Icon Only */
+$("#userAddIconBtn").onclick=()=>{
+ let icon=prompt("Enter icon URL:");
+ if(!icon)return;
+ alert("Icon saved. You can now paste it into the icon field.");
+};
+
+/* Search */
+$("#searchBar").oninput=()=>{
+ let q=$("#searchBar").value.toLowerCase();
+ $$("#gamesGrid .game-tile").forEach(t=>{
+  let name=t.querySelector(".game-title").textContent.toLowerCase();
+  t.style.display=name.includes(q)?"block":"none";
+ });
+};
+
+/* Chat */
+let messages=JSON.parse(localStorage.getItem("messages")||"[]");
+function saveMessages(){localStorage.setItem("messages",JSON.stringify(messages))}
+function renderChat(){
+ let logBox=$("#chatLog");
+ logBox.innerHTML="";
+ messages.forEach(m=>{
+  let p=document.createElement("div");
+  p.textContent=m.user+": "+m.text;
+  logBox.appendChild(p);
+ });
+ logBox.scrollTop=logBox.scrollHeight;
+}
+renderChat();
+$("#chatSend").onclick=()=>{
+ if(!currentUser)return;
+ let txt=$("#chatInput").value.trim();
+ if(!txt)return;
+ messages.push({user:currentUser,text:txt});
+ saveMessages();
+ renderChat();
+ log("Chat: "+currentUser+" -> "+txt);
+};
+
+/* Friends */
+let friends=JSON.parse(localStorage.getItem("friends")||"[]");
+function saveFriends(){localStorage.setItem("friends",JSON.stringify(friends))}
+function renderFriends(){
+ let box=$("#friendsList");
+ box.innerHTML="";
+ friends.forEach(f=>{
+  let p=document.createElement("p");
+  p.textContent=f;
+  box.appendChild(p);
+ });
+}
+renderFriends();
+
+/* Stats */
+function updateStats(){
+ $("#statsUsers").textContent="Users: "+Object.keys(users).length;
+ $("#statsGames").textContent="Games: "+games.length;
+ $("#statsMessages").textContent="Messages: "+messages.length;
+}
+setInterval(updateStats,1000);
+
+/* Leaderboard */
+function updateLeaderboard(){
+ let msgCount=messages.length;
+ let gameCount=games.length;
+ let loginCount=Object.keys(users).length;
+ $("#lbMessages").textContent="Total Messages: "+msgCount;
+ $("#lbGames").textContent="Total Games: "+gameCount;
+ $("#lbLogins").textContent="Total Users: "+loginCount;
+}
+setInterval(updateLeaderboard,1000);
+
+/* Terminals */
+function updateTerminals(){
+ let box=$("#terminalList");
+ box.innerHTML="";
+ if(currentUser){
+  let p=document.createElement("p");
+  p.innerHTML=`${currentUser}<span class="term-dot"></span>`;
+  box.appendChild(p);
+ }
+}
+setInterval(updateTerminals,1000);
+</script>
 
 </body>
 </html>
-```
