@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNION Network | Admin Root</title>
     <style>
-        /* CORE STYLES */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             font-family: 'Courier New', Courier, monospace;
-            /* THE COOL BACKGROUND */
             background: radial-gradient(circle at center, #2a0505 0%, #000000 100%) !important;
             background-attachment: fixed;
             color: #ff4d4d;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             overflow-x: hidden;
         }
 
@@ -30,13 +29,6 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            color: #ff4d4d;
-        }
-
-        .container {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
         }
 
         .header-glow {
@@ -44,16 +36,43 @@
             text-transform: uppercase;
             letter-spacing: 5px;
             text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            margin-bottom: 20px;
+            margin-top: 50px;
+            text-align: center;
         }
 
-        .main-content {
+        /* THE WELCOME BOX */
+        #welcomeBox {
             margin-top: 50px;
             border: 1px solid rgba(255, 77, 77, 0.3);
             padding: 40px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
-            display: inline-block;
+            text-align: center;
+            transition: 0.5s;
+        }
+
+        /* THE HIDDEN TERMINAL (Revealed later) */
+        #mainTerminal {
+            display: none; /* Hidden by default */
+            margin-top: 30px;
+            width: 80%;
+            max-width: 800px;
+            border: 1px solid #ff4d4d;
+            background: rgba(20, 0, 0, 0.9);
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+        }
+
+        .menu-item {
+            padding: 15px;
+            border-bottom: 1px dashed rgba(255, 77, 77, 0.3);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+            padding-left: 25px;
         }
 
         button {
@@ -65,6 +84,7 @@
             font-family: inherit;
             transition: 0.3s;
             margin-top: 20px;
+            text-transform: uppercase;
         }
 
         button:hover {
@@ -77,26 +97,38 @@
 <body>
 
     <div id="bootScreen">
-        <h1>INITIALIZING UNION NETWORK...</h1>
-        <p id="status">Accessing Admin Root...</p>
+        <h1>INITIALIZING...</h1>
     </div>
 
-    <div class="container">
-        <h1 class="header-glow">WELCOME ALL UNION UNITED</h1>
-        <p>CYBER TERMINAL NETWORK</p>
+    <h1 class="header-glow">UNION NETWORK</h1>
 
-        <div class="main-content">
-            <h3>WELCOME</h3>
-            <p>Explore games, chat, and access admin tools.</p>
-            <button onclick="alert('Access Granted')">Enter Terminal</button>
-        </div>
+    <div id="welcomeBox">
+        <h3>SYSTEM RESTRICTED</h3>
+        <p style="margin-top:10px;">Identity verification required.</p>
+        <button onclick="enterSystem()">Enter Terminal</button>
+    </div>
+
+    <div id="mainTerminal">
+        <h2 style="border-bottom: 1px solid #ff4d4d; padding-bottom: 10px;">ADMIN ROOT ACCESS</h2>
+        <div class="menu-item">> [GAMES] - Access local software</div>
+        <div class="menu-item">> [CHAT] - Encrypted communication</div>
+        <div class="menu-item">> [FILES] - System database</div>
+        <div class="menu-item">> [LOGOUT] - Disconnect session</div>
     </div>
 
     <script>
-        // Simple script to hide boot screen
+        // Hide boot screen after 2 seconds
         setTimeout(() => {
             document.getElementById('bootScreen').style.display = 'none';
-        }, 2500);
+        }, 2000);
+
+        // THE MAGIC FUNCTION: Switches sections
+        function enterSystem() {
+            // Hide the welcome box
+            document.getElementById('welcomeBox').style.display = 'none';
+            // Show the terminal
+            document.getElementById('mainTerminal').style.display = 'block';
+        }
     </script>
 </body>
 </html>
