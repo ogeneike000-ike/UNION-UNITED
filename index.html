@@ -1,1 +1,93 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner & Admin Logic</title>
+</head>
+<body>
 
+    <!-- Your page content here -->
+    <input id="authUser" type="text" placeholder="Username">
+    <input id="authPass" type="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <button id="registerBtn">Register</button>
+
+    <div id="adminPanel">Admin Panel</div>
+
+    <script>
+    /* --- OWNER & ADMIN LOGIC --- */
+    let users = JSON.parse(localStorage.getItem("users") || "{}");
+    let currentUser = null;
+
+    // This function checks if the logged-in person is the boss
+    function isAdmin() {
+        return currentUser === "IkeUnited" || (currentUser && users[currentUser].role === "admin");
+    }
+
+    // Shows the panel ONLY if you are the admin/owner
+    function showAdmin() {
+        if (isAdmin()) {
+            const panel = $("#adminPanel");
+            panel.classList.add("visible");
+            log("Admin Panel Access Granted");
+        } else {
+            alert("Access Denied: Owner Privileges Required");
+        }
+    }
+
+    /* --- THE SECRET COMBO --- */
+    let shiftMode = false;
+    let passBuffer = "";
+
+    document.addEventListener("keydown", e => {
+        // Start the combo by holding Shift and pressing A
+        if (e.key === "A" && e.shiftKey) {
+            shiftMode = true;
+            passBuffer = "";
+        }
+        // Record the typing
+        if (shiftMode && e.key.length === 1 && !e.shiftKey) {
+            passBuffer += e.key;
+        }
+        // Finalize with Enter
+        if (shiftMode && e.key === "Enter") {
+            if (passBuffer === "chrolo123") {
+                showAdmin();
+            }
+            shiftMode = false;
+        }
+    });
+
+    /* --- UPDATED LOGIN LOGIC --- */
+    $("#loginBtn").onclick = () => {
+        let u = $("#authUser").value.trim();
+        let p = $("#authPass").value.trim();
+        if (!u || !p) return;
+        if (!users[u] || users[u].pass !== p || users[u].banned) return;
+
+        currentUser = u;
+        updateUserInfo();
+        log("Login: " + u);
+        
+        // Notice: I removed the automatic showAdmin() here 
+        // so the panel stays hidden until you use the combo.
+    };
+
+    /* --- UPDATED REGISTRATION --- */
+    $("#registerBtn").onclick = () => {
+        let u = $("#authUser").value.trim();
+        let p = $("#authPass").value.trim();
+        if (!u || !p || users[u]) return;
+
+        // Automatically makes IkeUnited the admin in the database
+        let role = (u === "IkeUnited") ? "admin" : "user";
+        users[u] = { pass: p, role: role, banned: false };
+        localStorage.setItem("users", JSON.stringify(users));
+        alert("Registered: " + u);
+    };
+    </script>
+
+</body>
+</html>
+```
